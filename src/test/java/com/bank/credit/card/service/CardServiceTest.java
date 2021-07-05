@@ -2,7 +2,7 @@ package com.bank.credit.card.service;
 
 import com.bank.credit.card.test.data.helper.CreditCardBuilder;
 import com.bank.credit.card.constants.Brand;
-import com.bank.credit.card.dto.CardDetailsDto;
+import com.bank.credit.card.dto.CreditCardDetailsDto;
 import com.bank.credit.card.exception.CardAlreadyExistsException;
 import com.bank.credit.card.repository.CardRepository;
 import com.bank.credit.card.repository.entity.Card;
@@ -46,9 +46,9 @@ class CardServiceTest {
 
         when(cardRepository.existsCardsByNumber("4386280033772018")).thenReturn(false);
         when(cardRepository.save(any())).thenReturn(card);
-        when(mapper.cardDetailsDtoToCardEntity(any((CardDetailsDto.class)))).thenReturn(card);
-        CardDetailsDto cardDetailsDto = CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("4386280033772018").currency("£").build();
-        cardService.addCard(cardDetailsDto);
+        when(mapper.cardDetailsDtoToCardEntity(any((CreditCardDetailsDto.class)))).thenReturn(card);
+        CreditCardDetailsDto creditCardDetailsDto = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("4386280033772018").currency("£").build();
+        cardService.addCard(creditCardDetailsDto);
         verify(cardRepository, times(1)).save(card);
     }
 
@@ -58,9 +58,9 @@ class CardServiceTest {
 
         when(cardRepository.existsCardsByNumber("4386280033772018")).thenReturn(true);
 
-        CardDetailsDto cardDetailsDto = CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("4386280033772018").currency("£").build();
+        CreditCardDetailsDto creditCardDetailsDto = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("4386280033772018").currency("£").build();
         try {
-            cardService.addCard(cardDetailsDto);
+            cardService.addCard(creditCardDetailsDto);
         }catch (Exception e){
             assertNotNull(e);
             assertEquals(e.getClass().getSimpleName(),CardAlreadyExistsException.class.getSimpleName());
@@ -71,15 +71,15 @@ class CardServiceTest {
 
     @Test
     void shouldReturnAllCards() {
-        CardDetailsDto cardDetailsDto = CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("4386280033772018").currency("£").build();
+        CreditCardDetailsDto creditCardDetailsDto = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("4386280033772018").currency("£").build();
 
         when(cardRepository.findAll(Sort.by("id"))).thenReturn(Arrays.asList(
                 CreditCardBuilder.builder().ownerName("Unit Test").number("30569309025904").balance(10).limit(1000).brand(Brand.VISA).build().buildCard(),
                 CreditCardBuilder.builder().ownerName("Unit Test").number("6011111111111117").balance(10).limit(1000).brand(Brand.VISA).build().buildCard()
         ));
-        when(mapper.cardEntityToCardDetailsDto(any((Card.class)))).thenReturn(cardDetailsDto);
+        when(mapper.cardEntityToCardDetailsDto(any((Card.class)))).thenReturn(creditCardDetailsDto);
 
-        List<CardDetailsDto> allCards = cardService.getAllCards();
+        List<CreditCardDetailsDto> allCards = cardService.getAllCards();
         verify(cardRepository, times(1)).findAll(Sort.by("id"));
         assertNotNull(allCards);
         assertEquals(2, allCards.size());

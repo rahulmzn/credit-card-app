@@ -2,11 +2,9 @@ package com.bank.credit.card.constraints.validation;
 
 import com.bank.credit.card.constants.Brand;
 import com.bank.credit.card.test.data.helper.Constants;
-import com.bank.credit.card.dto.CardDetailsDto;
+import com.bank.credit.card.dto.CreditCardDetailsDto;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 
 import javax.validation.ConstraintViolation;
@@ -30,9 +28,9 @@ public class CreditCardNumberTest {
 
     @Test
     public void checkNoErrorWhenValidCardNumber() {
-        CardDetailsDto card = CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("30569309025904").currency("£").build();
+        CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("30569309025904").currency("£").build();
 
-        Set<ConstraintViolation<CardDetailsDto>> constraintViolations =
+        Set<ConstraintViolation<CreditCardDetailsDto>> constraintViolations =
                 validator.validate( card );
 
         assertEquals( 0, constraintViolations.size() );
@@ -41,9 +39,9 @@ public class CreditCardNumberTest {
 
     @Test
     public void checkErrorWhenInvalidCardNumber() {
-        CardDetailsDto card = CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("4386280033772").currency("£").build();
+        CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("4386280033772").currency("£").build();
 
-        Set<ConstraintViolation<CardDetailsDto>> constraintViolations =
+        Set<ConstraintViolation<CreditCardDetailsDto>> constraintViolations =
                 validator.validate( card );
         assertEquals( 1, constraintViolations.size() );
         assertEquals(
@@ -54,9 +52,9 @@ public class CreditCardNumberTest {
 
     @Test
     public void checkErrorWhenCardNumberIsMoreThan19Char() {
-        CardDetailsDto card = CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("43862800337721111111111111").currency("£").build();
+        CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("43862800337721111111111111").currency("£").build();
 
-        Set<ConstraintViolation<CardDetailsDto>> constraintViolations =
+        Set<ConstraintViolation<CreditCardDetailsDto>> constraintViolations =
                 validator.validate( card );
         assertEquals( 1, constraintViolations.size() );
         assertEquals(CARD_LENGTH_EXCEED, constraintViolations.iterator().next().getMessage());
@@ -64,9 +62,9 @@ public class CreditCardNumberTest {
 
     @Test
     public void checkErrorWhenCardNumberIsNull() {
-        CardDetailsDto card = CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number(null).currency("£").build();
+        CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number(null).currency("£").build();
 
-        Set<ConstraintViolation<CardDetailsDto>> constraintViolations =
+        Set<ConstraintViolation<CreditCardDetailsDto>> constraintViolations =
                 validator.validate( card );
         assertEquals( 1, constraintViolations.size() );
         assertEquals(CARD_NUMBER_NULL, constraintViolations.iterator().next().getMessage());
@@ -74,9 +72,9 @@ public class CreditCardNumberTest {
 
     @Test
     public void checkErrorWhenCardNumberContainsOtherThanDigitAlso() {
-        CardDetailsDto card = CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("43862800337sss111").currency("£").build();
+        CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("43862800337sss111").currency("£").build();
 
-        Set<ConstraintViolation<CardDetailsDto>> constraintViolations =
+        Set<ConstraintViolation<CreditCardDetailsDto>> constraintViolations =
                 validator.validate( card );
         assertEquals( 1, constraintViolations.size() );
         assertEquals(CARD_NUMBER_ONLY_DIGIT, constraintViolations.iterator().next().getMessage());

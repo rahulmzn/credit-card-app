@@ -1,7 +1,7 @@
 package com.bank.credit.card.controller;
 
 import com.bank.credit.card.constants.Brand;
-import com.bank.credit.card.dto.CardDetailsDto;
+import com.bank.credit.card.dto.CreditCardDetailsDto;
 import com.bank.credit.card.repository.CardRepository;
 import com.bank.credit.card.service.CardService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,7 +42,7 @@ class CreditCardControllerTest {
     @Test
     void shouldAddCreditCardSuccessfully() {
         // Given
-        CardDetailsDto card = CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("test Add card successfully").number("4716651077977392").currency("£").build();
+        CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("test Add card successfully").number("4716651077977392").currency("£").build();
 
         //Then
         try {
@@ -59,7 +59,7 @@ class CreditCardControllerTest {
     @ValueSource(strings = {"", "  ", "-1", "12q12", "123456789012345678901234"})
     void shouldValidateCreditCardAndReturnHttpErrorResponse(String invalidCardNumber) throws Exception{
         // Given
-        CardDetailsDto card = CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Should Fail with Error 422").number(invalidCardNumber).currency("£").build();
+        CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Should Fail with Error 422").number(invalidCardNumber).currency("£").build();
 
         //Then
             mockMvc.perform(post(CARDS_ROOT)
@@ -72,7 +72,7 @@ class CreditCardControllerTest {
     @Test
     void shouldValidateInvalidContentTypeAndReturnHttpErrorResponse() throws Exception{
         // Given
-        CardDetailsDto card = CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Validate Invalid Content in Header").number("66666666666").currency("£").build();
+        CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Validate Invalid Content in Header").number("66666666666").currency("£").build();
 
         //Then
         mockMvc.perform(post(CARDS_ROOT)
@@ -86,7 +86,7 @@ class CreditCardControllerTest {
     @ValueSource(ints = {-1})
     void whenFaultedCreditCardLimitThenReturns400(int creditCardLimit) throws Exception {
         // Given
-        CardDetailsDto card = CardDetailsDto.builder().brand(Brand.VISA).limit(creditCardLimit).ownerName("In Valid Credit card limit").number("12345678903555").currency("£").build();
+        CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(creditCardLimit).ownerName("In Valid Credit card limit").number("12345678903555").currency("£").build();
 
         //Then
         mockMvc.perform(post(CARDS_ROOT)
@@ -99,7 +99,7 @@ class CreditCardControllerTest {
     @Test
     void shouldSuccessfullyVerifyServiceExecution() throws Exception {
         // Given
-        CardDetailsDto card = CardDetailsDto.builder().brand(Brand.VISA).limit(100).ownerName("Rahul Kumar").number("12345678903555").currency("£").build();
+        CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(100).ownerName("Rahul Kumar").number("12345678903555").currency("£").build();
 
         //When
         mockMvc.perform(post(CARDS_ROOT)
@@ -109,7 +109,7 @@ class CreditCardControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated());
         //Then verify
         // Verify the results
-        ArgumentCaptor<CardDetailsDto> cardCaptor = ArgumentCaptor.forClass(CardDetailsDto.class);
+        ArgumentCaptor<CreditCardDetailsDto> cardCaptor = ArgumentCaptor.forClass(CreditCardDetailsDto.class);
         verify(cardService, times(1)).addCard(cardCaptor.capture());
         assertThat(cardCaptor.getValue().getLimit()).isEqualTo(card.getLimit());
         assertThat(cardCaptor.getValue().getNumber()).isEqualTo(card.getNumber());
@@ -119,7 +119,7 @@ class CreditCardControllerTest {
     @Test
     void shouldSuccessfullyValidateErrorJsonResponse() throws Exception {
         // Given
-        CardDetailsDto card = CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number(null).currency("£").build();
+        CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number(null).currency("£").build();
 
         //Then
         mockMvc.perform(post(CARDS_ROOT)
@@ -135,7 +135,7 @@ class CreditCardControllerTest {
     @Test
     void shouldReturnAllCardsFromDatabase() throws Exception {
        // Given
-        when(cardService.getAllCards()).thenReturn(Arrays.asList(CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("305693090259043").currency("£").build(),CardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("305693090259043").currency("£").build()));
+        when(cardService.getAllCards()).thenReturn(Arrays.asList(CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("305693090259043").currency("£").build(), CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("305693090259043").currency("£").build()));
 
         // Run the test
         mockMvc.perform(get(CARDS_ROOT)

@@ -1,6 +1,6 @@
 package com.bank.credit.card.service;
 
-import com.bank.credit.card.dto.CardDetailsDto;
+import com.bank.credit.card.dto.CreditCardDetailsDto;
 import com.bank.credit.card.exception.CardAlreadyExistsException;
 import com.bank.credit.card.repository.CardRepository;
 import com.bank.credit.card.repository.entity.Card;
@@ -35,16 +35,16 @@ public class CreditCardServiceImpl implements CardService {
 
     /**
      * This operation should be used when new credit card is to be store in backend system.
-     * @param cardDetailsDto : Credit Card object which need to be store in backend system
+     * @param creditCardDetailsDto : Credit Card object which need to be store in backend system
      */
     @Override
-    public void addCard(CardDetailsDto cardDetailsDto) {
+    public void addCard(CreditCardDetailsDto creditCardDetailsDto) {
         log.debug("Add credit card started");
-        boolean cardExistsForNumber = cardRepository.existsCardsByNumber(cardDetailsDto.getNumber());
+        boolean cardExistsForNumber = cardRepository.existsCardsByNumber(creditCardDetailsDto.getNumber());
         if (cardExistsForNumber) {
-            throw new CardAlreadyExistsException(cardDetailsDto.getNumber());
+            throw new CardAlreadyExistsException(creditCardDetailsDto.getNumber());
         }
-        cardRepository.save(mapper.cardDetailsDtoToCardEntity(cardDetailsDto));
+        cardRepository.save(mapper.cardDetailsDtoToCardEntity(creditCardDetailsDto));
     }
 
     /**
@@ -52,7 +52,7 @@ public class CreditCardServiceImpl implements CardService {
      * @return : List of all credit card
      */
     @Override
-    public List<CardDetailsDto> getAllCards() {
+    public List<CreditCardDetailsDto> getAllCards() {
         log.debug("Fetch all credit card started");
         List<Card> cards = cardRepository.findAll(Sort.by("id").ascending());
         return cards.stream().map(mapper::cardEntityToCardDetailsDto).collect(Collectors.toList());

@@ -4,6 +4,7 @@ package com.bank.credit.card.exception.handler;
 import com.bank.credit.card.exception.InvalidRequestException;
 import com.bank.credit.card.exception.model.ErrorResource;
 import com.bank.credit.card.exception.model.FieldErrorResource;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 /**
  * RestResponseEntityExceptionHandler class will be responsible  to handle all the error or failure scenario as part of error framework implementation.
  */
-
+@Api(tags = {"Errors"})
 @RestControllerAdvice
 @Slf4j
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
