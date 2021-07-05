@@ -3,6 +3,7 @@ package com.bank.credit.card.dto;
 import com.bank.credit.card.constants.Brand;
 import com.bank.credit.card.constraints.CardNumber;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,18 +15,18 @@ import javax.validation.constraints.PositiveOrZero;
 /**
  * POJO to collect request data as data transfer
  */
-
+@ApiModel(description = "Details about the credit cards")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class CardDetailsDto {
+public class CreditCardDetailsDto {
 
     /**
      * Unique ID created by hibernate while storing data,
      */
     @JsonProperty("id")
-    private String id;
+    private Long id;
 
     /**
      * Name of the card holder
