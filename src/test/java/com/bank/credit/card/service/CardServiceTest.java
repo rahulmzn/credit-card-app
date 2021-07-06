@@ -25,6 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit test performed on service class
+ */
+
 @ExtendWith(MockitoExtension.class)
 class CardServiceTest {
 
@@ -40,6 +44,10 @@ class CardServiceTest {
     @InjectMocks
     CreditCardServiceImpl cardService;
 
+    /**
+     * This will test if cards are getting saved in database successfully
+     */
+
     @Test
     void shouldAddCardInRepository() {
         Card card = CreditCardBuilder.builder().ownerName("Unit Test").number("4386280033772018").balance(10).limit(1000).brand(Brand.VISA).build().buildCard();
@@ -52,6 +60,9 @@ class CardServiceTest {
         verify(cardRepository, times(1)).save(card);
     }
 
+    /**
+     * This test should return exception if card already exists in database
+     */
     @Test
     void shouldReturnCardAlreadyExistsError() {
         Card card = CreditCardBuilder.builder().ownerName("Unit Test").number("4386280033772018").balance(10).limit(1000).brand(Brand.VISA).build().buildCard();
@@ -69,6 +80,9 @@ class CardServiceTest {
 
     }
 
+    /**
+     * This service test should return all cards from database
+     */
     @Test
     void shouldReturnAllCards() {
         CreditCardDetailsDto creditCardDetailsDto = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("4386280033772018").currency("£").build();

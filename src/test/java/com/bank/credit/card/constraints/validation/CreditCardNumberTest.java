@@ -16,6 +16,10 @@ import java.util.Set;
 import static com.bank.credit.card.constraints.ErrorMessage.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * These test will validate different combinations on credit card number
+ */
+
 public class CreditCardNumberTest {
 
     private static Validator validator;
@@ -28,21 +32,26 @@ public class CreditCardNumberTest {
 
     @Test
     public void checkNoErrorWhenValidCardNumber() {
+        //Given
         CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("30569309025904").currency("£").build();
 
+        //When Run
         Set<ConstraintViolation<CreditCardDetailsDto>> constraintViolations =
                 validator.validate( card );
-
+        // Then verify
         assertEquals( 0, constraintViolations.size() );
         assertTrue(constraintViolations.isEmpty());
     }
 
     @Test
     public void checkErrorWhenInvalidCardNumber() {
+        //Given
         CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("4386280033772").currency("£").build();
 
+        //When Run
         Set<ConstraintViolation<CreditCardDetailsDto>> constraintViolations =
                 validator.validate( card );
+        // Then verify
         assertEquals( 1, constraintViolations.size() );
         assertEquals(
                 Constants.EXCEPTION_MSG,
@@ -52,30 +61,39 @@ public class CreditCardNumberTest {
 
     @Test
     public void checkErrorWhenCardNumberIsMoreThan19Char() {
+        //Given
         CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("43862800337721111111111111").currency("£").build();
 
+        // When Run
         Set<ConstraintViolation<CreditCardDetailsDto>> constraintViolations =
                 validator.validate( card );
+        // Then verify
         assertEquals( 1, constraintViolations.size() );
         assertEquals(CARD_LENGTH_EXCEED, constraintViolations.iterator().next().getMessage());
     }
 
     @Test
     public void checkErrorWhenCardNumberIsNull() {
+        // Given
         CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number(null).currency("£").build();
 
+        //When Run
         Set<ConstraintViolation<CreditCardDetailsDto>> constraintViolations =
                 validator.validate( card );
+        // Then verify
         assertEquals( 1, constraintViolations.size() );
         assertEquals(CARD_NUMBER_NULL, constraintViolations.iterator().next().getMessage());
     }
 
     @Test
     public void checkErrorWhenCardNumberContainsOtherThanDigitAlso() {
+        // Given
         CreditCardDetailsDto card = CreditCardDetailsDto.builder().brand(Brand.VISA).limit(1000).ownerName("Rahul Kumar").number("43862800337sss111").currency("£").build();
 
+        // When Run
         Set<ConstraintViolation<CreditCardDetailsDto>> constraintViolations =
                 validator.validate( card );
+        // Then verify
         assertEquals( 1, constraintViolations.size() );
         assertEquals(CARD_NUMBER_ONLY_DIGIT, constraintViolations.iterator().next().getMessage());
     }

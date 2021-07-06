@@ -11,6 +11,9 @@ import javax.validation.ConstraintValidatorContext;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Validate Card Number Unit tests against Luhn10 Algo
+ */
 class Luhn10UtilTest {
 
     @ParameterizedTest
