@@ -180,14 +180,14 @@ $ java -jar target/credit-card-app-0.0.1-SNAPSHOT.jar.jar
 ## Testing API
 >_NOTE:_ All below links will only be available after running app with above steps
 #### Testing with Swagger
-* [Swagger](http://localhost:8085/swagger-ui/) - http://localhost:8085/swagger-ui  
+* [Swagger](http://localhost:8085/swagger-ui/) - http://localhost:8085/swagger-ui/  
 
 #### Accessing Credit Card API from command prompt (terminal) using CURL commands
 After deployment of application [Test Restful API](http://localhost:8085/swagger-ui-custom.html) link can be followed to test API's. 
 #### Add new card
-     : curl --location --request POST 'http://localhost:8085/api/v1/cards' --header 'Content-Type: application/json' --data-raw '{ "brand": "VISA", "type": "testing type", "currency": "GBP", "limit": "1000", "funding": "", "number": "4012888888881881", "country": "GB", "name": "Rahul Kumr" }'
+      curl --location --request POST 'http://localhost:8085/api/v1/cards' --header 'Content-Type: application/json' --data-raw '{ "brand": "VISA", "type": "testing type", "currency": "GBP", "limit": "1000", "funding": "", "number": "4012888888881881", "country": "GB", "name": "Rahul Kumr" }'
 #### Fetch All cards
-     : curl --header 'Content-Type: application/json' 'http://localhost:8085/api/v1/cards'
+      curl --header 'Content-Type: application/json' 'http://localhost:8085/api/v1/cards'
 
 #### Testing with Postman Runner
 Import the `docs\Credit-Card-App.postman_collection.json` file into postman and run the API tests (Spring Boot service should be running).
@@ -196,9 +196,12 @@ Import the `docs\Credit-Card-App.postman_collection.json` file into postman and 
 * Run only unit tests:
 
 ```shell
-$ ./mvn clean test
+$ ./mvnw clean test
 ```
-
+Or If windows
+```shell
+$ ./mvnw.bat clean test
+```
 
 To shut down the jar, follow the below mentioned steps on a Mac os machine.
 
@@ -218,7 +221,7 @@ To shut down the jar, follow the below mentioned steps on a Windows machine.
 
 ##### H2 Console
 
-URL to access H2 console: **http://localhost:8085/h2-console/login.jsp**.
+URL to access H2 console: **http://localhost:8085/h2-console/login.jsp**
 
 Fill the login form as follows and click on Connect:
 
