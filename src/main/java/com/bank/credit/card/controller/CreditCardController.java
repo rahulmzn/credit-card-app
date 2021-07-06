@@ -43,7 +43,7 @@ public class CreditCardController {
     public ResponseEntity<Void> addCreditCard(
             @ApiParam(required = true, name = "creditCard", value = "Add credit Card")
             @RequestBody @Valid CreditCardDetailsDto card, BindingResult bindingResult) {
-
+        //Process errors
         if (bindingResult.hasErrors()) {
             throw new InvalidRequestException("Invalid " + card.getClass().getSimpleName(), bindingResult);
         }
