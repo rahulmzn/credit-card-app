@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "4677fa83-c918-41c1-bce9-31992ede7cf2",
+		"name": "Credit-Card-App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Invalid Card",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "4386280022772018",
+						"value": "4386280022772018",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"brand\": \"VISA\",\n  \"type\": \"testing type\",\n  \"currency\": \"GBP\",\n  \"limit\": \"-1\",\n  \"funding\": \"\",\n  \"number\": \"11111111111ddd111111\",\n  \"country\": \"GB\",\n  \"name\": \"Rahul Kumr\"\n}",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/api/v1/cards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"api",
+						"v1",
+						"cards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Card - with valid details",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "4386280022772018",
+						"value": "4386280022772018",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"brand\": \"VISA\",\n  \"currency\": \"GBP\",\n  \"limit\": \"1000\",\n  \"number\": \"4111111111111111\",\n  \"name\": \"Rahul Kumr\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/api/v1/cards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"api",
+						"v1",
+						"cards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Cards",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8085/api/v1/cards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"api",
+						"v1",
+						"cards"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
