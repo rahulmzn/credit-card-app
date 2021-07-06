@@ -13,12 +13,12 @@
 		<version>2.4.8</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-
 	<properties>
 		<java.version>1.8</java.version>
 		<springfox.swagger.version>3.0.0</springfox.swagger.version>
 	</properties>
 	<dependencies>
+		<!-- Start Spring Family -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -36,23 +36,27 @@
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>${springfox.swagger.version}</version>
 		</dependency>
-
+		<!-- End Spring Family -->
+		<!-- Start Database Group -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- End Database Group -->
+		<!-- Start Support libs -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- End Support libs -->
+		<!-- Start For Local Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- Start Junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -63,7 +67,7 @@
 			<artifactId>json-path-assert</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- End Junit -->
+		<!--End For Local Test -->
 	</dependencies>
 
 	<build>

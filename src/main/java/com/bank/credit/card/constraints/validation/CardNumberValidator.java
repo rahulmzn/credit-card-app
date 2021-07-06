@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.List;
 import java.util.Objects;
 
 import static com.bank.credit.card.constraints.ErrorMessage.*;

@@ -13,6 +13,10 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.Collections;
 
+/**
+ * This class enables swagger api specification on credit cara api
+ */
+
 @Configuration
 public class SwaggerConfig {
 

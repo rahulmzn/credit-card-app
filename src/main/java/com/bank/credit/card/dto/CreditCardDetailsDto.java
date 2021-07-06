@@ -66,6 +66,9 @@ public class CreditCardDetailsDto {
     @JsonProperty("brand")
     private Brand brand;
 
+    /**
+     * Type of currency will be on card
+     */
     @JsonProperty("currency")
     @NotNull(message = "Credit currency is mandatory.")
     private String currency;
